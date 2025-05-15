@@ -7,13 +7,12 @@ int main()
     httplib::Server svr;
     svr.Get("/hi", [](const httplib::Request &req, httplib::Response &res)
             {
-        res.set_content("Hello World!", "text/plain");
-        cout<<res.status<<endl;
-        cout<<res.body<<endl;
-        for(auto& x:req.headers)
-        {
-            cout<<x.first<<" : "<<x.second<<endl;
-        }
+        // cout<<res.status<<endl;
+        // cout<<res.body<<endl;
+        // for(auto& x:req.headers)
+        // {
+        //     cout<<x.first<<" : "<<x.second<<endl;
+        // }
         std::string body = "<h1>HelloWorld</h1>";
         res.set_content(body, "text/html");
         res.status = 200; });
