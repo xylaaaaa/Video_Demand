@@ -1,21 +1,18 @@
-# Makefile for compiling test.cpp with g++
+aod:aod.cpp util.hpp data.hpp server.hpp
+	g++ -std=c++11 $^ -o $@ -L/usr/lib64/mysql -ljsoncpp -lmysqlclient -lpthread
 
-# Compiler and flags
-CXX = g++
-CXXFLAGS = -std=c++11
-LIBS = -ljsoncpp
+.PHONY: clean run db_init install
 
-# Output file
-OUTPUT = a
-SRC = test.cpp
-
-# Default target
-all: $(OUTPUT)
-
-# Compile the program
-$(OUTPUT): $(SRC)
-	$(CXX) $(CXXFLAGS) $(SRC) -o $(OUTPUT) $(LIBS)
-
-# Clean up
 clean:
-	rm -f $(OUTPUT)
+	rm -f aod *.o
+
+run:
+	./aod
+
+db_init:
+	chmod +x setup_db.sh
+	./setup_db.sh
+
+install:
+	mkdir -p ./www/video ./www/image
+	$(MAKE) db_init
